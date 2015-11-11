@@ -57,6 +57,7 @@ $yml = $this->get('itf.confy');
 $yml->setConfigFilePath('some/path/to/config.yml');
 /* now get its content with: $yml->getAll(); */
 ```
-
+## Preview
+![preview](http://imgur.com/W3DooAy)
 ## License
 MIT
