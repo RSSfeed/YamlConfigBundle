@@ -1,0 +1,21 @@
+{
+    "name": "itf/yaml-config-bundle",
+    "type": "library",
+    "require": {
+        "php": ">=5.3",
+        "symfony/symfony": "~2.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "interface-f gmbh",
+            "email": "info@interface-f.com"
+        }
+    ],
+    "target-dir": "ITF/YamlConfigBundle",
+    "autoload": {
+        "psr-0": {
+            "ITF\\YamlConfigBundle": ""
+        }
+    }
+}
