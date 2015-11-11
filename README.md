@@ -57,6 +57,19 @@ $yml = $this->get('itf.confy');
 $yml->setConfigFilePath('some/path/to/config.yml');
 /* now get its content with: $yml->getAll(); */
 ```
+## Use serivce in twig template
+To use this service within a twig template you have to add the service to twig globals in config.yml:
+```yml
+twig:
+    globals:
+       confy: "@itf.yconf"
+```
+Now you can access the config values as usual:
+```twig
+{{ confy.get('config2.config2_1') }} 
+{# outputs: some other value #}
+```
+
 ## Web Interface
 Access the web interface on ```http://[your-server]:8000/_config```
 ![Preview Image](http://i.imgur.com/W3DooAy.png)
