@@ -57,7 +57,8 @@ $yml = $this->get('itf.confy');
 $yml->setConfigFilePath('some/path/to/config.yml');
 /* now get its content with: $yml->getAll(); */
 ```
-## Preview
+## Web Interface
+Access the web interface on ```http://[your-server]:8000/_config```
 ![Preview Image](http://i.imgur.com/W3DooAy.png)
 ## License
 MIT
