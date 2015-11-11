@@ -1,0 +1,156 @@
+{% macro inputs(array, parent_key) %}
+    {% import _self as macro %}
+
+    {# go through array #}
+    {% for key,value in array %}
+
+        {# print panel if iterable #}
+        {% if value is iterable %}
+        <fieldset>
+            <legend>{{ key }}</legend>
+        {% endif %}
+
+        {# set input_key #}
+        {% if parent_key is null %}
+            {% set input_key = 'array[' ~ key ~ ']' %}
+            {{ parent_key }}
+        {% else %}
+            {% set input_key = parent_key ~ '[' ~ key ~ ']' %}
+        {% endif %}
+
+        {# print input #}
+        {% if value is not iterable %}
+            {% set _id = random() ~ '_' ~ key %}
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label class="col control-label" style="display:inline-block;width:auto;" for="{{ _id }}">{{ key }}</label>
+
+                    <span class="input-wrapper">
+                        <input class="form-control" type="text" id="{{ _id }}" name="{{ input_key }}" value="{{ value }}" />
+                    </span>
+                </div>
+            </div>
+        {% else %}
+            {# sub input #}
+            <div class="sub-input">
+                {{ macro.inputs(value, input_key) }}
+            </div>
+        {% endif %}
+
+        {# close panel if iterable #}
+        {% if value is iterable %}
+            </fieldset>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as macro %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+        <style>
+            h3 {
+                font-size: 32px;
+                background-color:white;
+                margin:0;
+                padding:15px 5px;
+                z-index:1;
+            }
+                .sticky-wrapper.is-sticky h3 {
+                    border-bottom:1px solid #dadada;
+                }
+
+                h3 .alert {
+                    display: inline-block;
+                    margin: 0;
+                    font-size: 14px;
+                    padding: 6px 10px;
+                    vertical-align: middle;
+                }
+
+            .control-label {
+                float:left;
+                text-align:left !important;
+                padding-right:20px;
+                font-weight:normal;
+            }
+
+            .input-wrapper {
+                display:block;
+                overflow:hidden;
+            }
+                .form-control {
+                    border-radius:0;
+                    height:auto;
+                    padding:4px 11px;
+                }
+
+            fieldset {
+                border:1px solid #dadada;
+                padding:10px 15px;
+                background-color:rgba(200,200,200,.2);
+                margin-bottom:10px;
+            }
+
+                fieldset legend {
+                    border:none;
+                    display:inline-block;
+                    width:auto;
+                    font-size:16px;
+                    font-weight:bold;
+                    padding:0 10px;
+                    margin-bottom: 5px;
+                }
+        </style>
+    </head>
+    <body>
+        {% set currentPath = path(app.request.attributes.get('_route')) %}
+
+        <div class="container">
+            <form id="wrapper" method="POST" action="" class="form-horizontal">
+                <h3 class="stick">
+                    {{ file_name }}
+
+                    {% for flashMessage in app.session.flashbag.get('notice')|slice(0,1) %}
+                        <div class="alert alert-success" role="alert">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="btn-group pull-right">
+                        <button href="{{ currentPath }}" class="btn btn-default">Refresh</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </h3>
+
+                {{ macro.inputs(array) }}
+            </form>
+        </div>
+
+        <script src="{{ asset('lib/js/jquery-1.11.3.min.js') }}"></script>
+        <script src="{{ asset('lib/js/jquery.sticky.js') }}"></script>
+
+        <script>
+            $(function() {
+                // sticky
+                $(".stick").sticky({topSpacing:0});
+
+                // alert
+                var alerts = $('.alert');
+                if (alerts.length > 0) {
+                    alerts.each(function() {
+                        var alert = $(this);
+                        if (alert.hasClass('alert-success')) {
+                            setTimeout(function() {
+                                alert.fadeOut('slow', function() {
+                                    alert.remove();
+                                })
+                            }, 1500);
+                        }
+                    })
+                }
+            });
+        </script>
+    </body>
+</html>

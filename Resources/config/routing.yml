@@ -1,0 +1,3 @@
+yaml_config_homepage:
+    path:     /
+    defaults: { _controller: YamlConfigBundle:Default:index }

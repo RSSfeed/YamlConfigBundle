@@ -1,0 +1,12 @@
+{% macro inputs(array) %}
+    {% for key,value in array %}
+        {% if value is not iterable %}
+            <div>
+                <label>{{ key }}</label>
+                <input type="text" name="" value="{{ value }}" />
+            </div>
+        {% else %}
+            {{ _self.inputs(value) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

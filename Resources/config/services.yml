@@ -1,0 +1,8 @@
+services:
+    itf.yconf.adapter:
+        class: ITF\YamlConfigBundle\Yaml\YamlAdapter
+        arguments: [ "@service_container" ]
+
+    itf.yconf:
+        class: ITF\YamlConfigBundle\Yaml\YamlConfig
+        arguments: [ "@service_container" ]
