@@ -58,6 +58,6 @@ $yml->setConfigFilePath('some/path/to/config.yml');
 /* now get its content with: $yml->getAll(); */
 ```
 ## Preview
-[Preview Image](http://imgur.com/W3DooAy)
+![Preview Image](http://i.imgur.com/W3DooAy.png)
 ## License
 MIT
