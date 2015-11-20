@@ -18,6 +18,10 @@
             {% set input_key = parent_key ~ '[' ~ key ~ ']' %}
         {% endif %}
 
+        {# attr path #}
+        {% set attr_path = input_key|preg_replace('/^(array\\[)(.*)(\\])$/', '$2') %}
+        {% set attr_path = attr_path|preg_replace('/\\]\\[/', '.') %}
+
         {# print input #}
         {% if value is not iterable %}
             {% set _id = random() ~ '_' ~ key %}
@@ -25,9 +29,21 @@
                 <div class="col-xs-12">
                     <label class="col control-label" style="display:inline-block;width:auto;" for="{{ _id }}">{{ key }}</label>
 
-                    <span class="input-wrapper">
-                        <input class="form-control" type="text" id="{{ _id }}" name="{{ input_key }}" value="{{ value }}" />
-                    </span>
+                    <div class="input-wrapper">
+                        <div class="input-group">
+                            <input class="form-control" type="text" id="{{ _id }}" name="{{ input_key }}" value="{{ value }}" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-sm"
+                                        type="button" data-toggle="collapse"
+                                        data-target="#{{ _id }}_path">
+                                    Path
+                                </button>
+                            </span>
+                        </div>
+                        <div class="collapse" id="{{ _id }}_path">
+                            <code>{{ attr_path }}</code>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% else %}
@@ -77,6 +93,7 @@
 
         <script src="{{ asset('bundles/yamlconfig/js/jquery-1.11.3.min.js') }}"></script>
         <script src="{{ asset('bundles/yamlconfig/js/jquery.sticky.js') }}"></script>
+        <script src="{{ asset('bundles/yamlconfig/js/bs.js') }}"></script>
 
         <script>
             $(function() {

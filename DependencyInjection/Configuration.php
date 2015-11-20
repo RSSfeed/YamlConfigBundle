@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
-                ->scalarNode('file_path')->end()
+                ->scalarNode('file_path')
             ->end()
         ;
 

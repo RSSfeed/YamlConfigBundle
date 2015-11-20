@@ -1,4 +1,4 @@
 assetic:
-  debug:          "%kernel.debug%"
-  use_controller: true
-  bundles:        ['YamlConfigBundle']
+    debug:          "%kernel.debug%"
+    use_controller: true
+    bundles:        ['YamlConfigBundle']
