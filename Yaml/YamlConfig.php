@@ -1,7 +1,6 @@
 <?php
 namespace ITF\YamlConfigBundle\Yaml;
 
-use JMS\Serializer\Exception\LogicException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -61,7 +60,7 @@ class YamlConfig
 		// check file extension
 		$file_info = new \SplFileInfo($file_path);
 		if ($file_info->getExtension() !== 'yml') {
-			throw new LogicException(
+			throw new \LogicException(
 				sprintf('Configuration file "%s" is not in needed format .yml, %s is given', $file_path, $file_info->getExtension())
 			);
 		}
