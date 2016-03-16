@@ -214,7 +214,7 @@ class YamlConfig
 		$value = $this->accessor->getValue($this->db, $attr);
 
 		if ($not_empty === true && strlen($value) == 0) {
-			throw new LogicException(sprintf('Requested attribute %s should not be empty', $attr_raw));
+			throw new \LogicException(sprintf('Requested attribute %s should not be empty', $attr_raw));
 		}
 
 		return $value;
