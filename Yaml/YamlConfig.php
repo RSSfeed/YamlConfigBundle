@@ -137,7 +137,7 @@ class YamlConfig
 	{
 		if (empty($array)) $array = $this->db;
 
-		return Yaml::dump($array);
+		return Yaml::dump($array, 4);
 	}
 
 
