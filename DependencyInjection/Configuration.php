@@ -25,7 +25,8 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
-                ->scalarNode('file_path')
+                ->scalarNode('file_path')->end()
+                ->booleanNode('exception_on_missing')->defaultValue(false)->end()
             ->end()
         ;
 

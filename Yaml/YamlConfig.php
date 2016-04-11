@@ -200,12 +200,12 @@ class YamlConfig
 	 * Get attributes value
 	 *
 	 * @param $attr
-	 * @param bool $not_empty
+	 * @param null|bool $not_empty
 	 * @param bool|false $parse_first
 	 *
 	 * @return mixed
 	 */
-	public function get($attr, $not_empty = true, $parse_first = false)
+	public function get($attr, $not_empty = null, $parse_first = false)
 	{
 		if ($parse_first === true) $this->parse();
 		$attr_raw = $attr;
@@ -213,8 +213,13 @@ class YamlConfig
 
 		$value = $this->accessor->getValue($this->db, $attr);
 
-		if ($not_empty === true && strlen($value) == 0) {
-			throw new \LogicException(sprintf('Requested attribute %s should not be empty', $attr_raw));
+		// only throw exception if required
+		if (($this->config['exception_on_missing'] && $not_empty === true) ) {
+			if (strlen($value) == 0) {
+				throw new \LogicException(sprintf('Requested attribute %s should not be empty', $attr_raw));
+			}
+		} else {
+			$value = false;
 		}
 
 		return $value;
