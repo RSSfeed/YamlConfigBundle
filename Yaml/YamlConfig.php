@@ -214,12 +214,12 @@ class YamlConfig
 		$value = $this->accessor->getValue($this->db, $attr);
 
 		// only throw exception if required
-		if (($this->config['exception_on_missing'] && $not_empty === true) ) {
-			if (strlen($value) == 0) {
+		if (strlen($value) == 0) {
+			if ($this->config['exception_on_missing'] && $not_empty === true) {
 				throw new \LogicException(sprintf('Requested attribute %s should not be empty', $attr_raw));
+			} else {
+				$value = false;
 			}
-		} else {
-			$value = false;
 		}
 
 		return $value;
